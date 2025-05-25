@@ -1,0 +1,7 @@
+[project]
+name = "mosf"
+version = "0.1.0"
+description = "A 'Sign in to Salesforce' button for Marimo"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
