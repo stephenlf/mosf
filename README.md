@@ -32,7 +32,7 @@ sf: Salesforce = Salesforce(
 
 1. Follow the instructions in [Setting up your External Client App](docs/setting-up-your-external-client-app.md) to create an External Client App in your target org.
 2. Pass your External Client App's configuration into the `login_button` function.
-  - By default, `login_button` will spin up a local, oneshot HTTP server to handle individual callback requests. This is enough for local development, but it may not be suitable for shared or remote environments. Read [Using the Standalone Callback Server](docs/using-the-standalone-callback-server.md) for more information.
+  - By default, `login_button` will spin up a local, oneshot HTTP server to handle individual callback requests. This is enough for local development, but it may not be suitable for shared or remote environments. For remote, single-user environments, read [Using the Standalone Callback Server](docs/using-the-standalone-callback-server.md). For Marimo environments served from JupyterHub, read [The JupyterHub Callback Service](docs/the-jupyterhub-callback-service).
 
 ```python
 import mosf
