@@ -13,6 +13,16 @@ dev = [
     "pytest-cov>=6.1.1",
     "ruff>=0.11.11",
 ]
+jh = [
+    "fastapi>=0.115.12",
+]
+server = [
+    "fastapi>=0.115.12",
+]
+widget = [
+    "anywidget>=0.9.18",
+    "requests-oauthlib>=2.0.0",
+]
 
 [tool.mypy]
 strict = true
