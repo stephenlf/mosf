@@ -6,15 +6,15 @@ import traitlets
 from requests_oauthlib import OAuth2Session
 
 
-SerializedState = NewType("SerializedState", str)
-"""A JSON serialized, URL-encoded State"""
+# SerializedState = NewType("SerializedState", str)
+# """A JSON serialized, URL-encoded State"""
 
-TimestampMilli = NewType("TimestampMilli", int)
+# TimestampMilli = NewType("TimestampMilli", int)
 
-@dataclass(slots=True)
-class State:
-    """"""
-    ...
+# @dataclass(slots=True)
+# class State:
+#     """"""
+#     ...
 
 
 # @dataclass
@@ -33,7 +33,9 @@ class State:
 
 #     token_type: Literal["Bearer"] = "Bearer"
 
-class SFLoginWidget(anywidget.AnyWidget):
+class SFLoginWidget(anywidget.AnyWidget): 
+    """Salesforce Login Anywidget"""
+    
     _esm = "static/widget.js"
     _css = "static/widget.css"
     
