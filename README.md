@@ -1,8 +1,8 @@
 # mosf
 
-> A "Sign in to Salesforce" button for Marimo
+> A "Sign in to Salesforce" Anywidget button for Marimo
 
-`mosf` makes it easy to connect your Marimo notebooks to Salesforce using a web-based oauth flow. There's no need to store rotating passwords and security tokens. Sign in with just a click.
+`mosf` makes it easy to connect your Marimo notebooks to Salesforce using a web-based oauth flow. There's no need to store rotating passwords and security tokens. Sign in with just a click. `pip install mosf[widget]`
 
 ## Usage
 
