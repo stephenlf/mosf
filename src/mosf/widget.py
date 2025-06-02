@@ -1,11 +1,10 @@
 from dataclasses import dataclass
+from typing import Any, Literal, NewType, Optional
 from urllib.parse import urlparse
-from typing import Optional, NewType, Literal, Any
 
 import anywidget
 import traitlets
 from requests_oauthlib import OAuth2Session
-
 
 SerializedState = NewType("SerializedState", str)
 # """A JSON serialized, URL-encoded State"""
@@ -34,16 +33,22 @@ class AccessToken:
 
     token_type: Literal["Bearer"] = "Bearer"
 
-class SFLoginWidget(anywidget.AnyWidget): 
+
+class SFLoginWidget(anywidget.AnyWidget):
     """Salesforce Login Anywidget"""
-    
+
     _esm = "static/widget.js"
     _css = "static/widget.css"
 
-    def __init__(self, label: str = "Sign in to Salesforce", alias: Optional[str] = None):
+    def __init__(
+        self,
+        label: str = "Sign in to Salesforce",
+        alias: Optional[str] = None,
+        domain: str = "login",
+    ):
         self.label = label
         self._alias = alias
-    
+
     connected = traitlets.Bool(False).tag(sync=True)
     session: OAuth2Session | None = None
 
@@ -51,20 +56,21 @@ class SFLoginWidget(anywidget.AnyWidget):
     def access_token(self) -> AccessToken | None:
         if self.session is None:
             return None
-        access_token_dict: dict[str, Any] = self.session.access_token # type: ignore[access_token]
+        access_token_dict: dict[str, Any] = self.session.access_token  # type: ignore[access_token]
         return AccessToken(**access_token_dict)
 
     @property
     def instance_url(self) -> str | None:
         if self.access_token is not None:
             return self.access_token.instance_url
-    
+
     @property
     def alias(self) -> str | None:
         if (
-            self.access_token is None 
-            or (hostname := urlparse(self.access_token.instance_url).hostname) is None
+            self.access_token is None
+            or (hostname := urlparse(self.access_token.instance_url).hostname)
+            is None
         ):
             return None
-        [instance, *_] = hostname.split('.')
+        [instance, *_] = hostname.split(".")
         return self._alias or instance
