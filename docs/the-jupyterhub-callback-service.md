@@ -28,9 +28,9 @@ c.JupyterHub.services += [
 ]
 ```
 
-With the JupyterHub service registered, users may create their "Sign in to Salesforce" button by passing in the `jh` parameter.
+With the JupyterHub service registered, users may create their "Sign in to Salesforce" by using the appropriate `callback_type`.
 
 ```python
 import mosf
-login_button = mosf.login_button(jh=True)
+login_button = mosf.login_button(callback_type='jh')
 ```

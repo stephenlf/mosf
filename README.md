@@ -11,20 +11,22 @@
 import marimo as mo
 import mosf
 
-    # Use one-shot callback server; local dev only
+# Use one-shot callback server; local dev only
 login_button = mosf.login_button()
 # ==================
 
 # ======cell 2======
 mo.stop(not login_button.connected)
 
-    # Create a `simple_salesforce` client. You can also use a standard
-    # `requests` session for REST calls not supported by `simple_salesforce`
+# Create a `simple_salesforce` client.
 from simple_salesforce import Salesforce
 sf: Salesforce = Salesforce(
-    instance_url=login_button.token.instance_url,
-    session_id=login_button.token.access_token,
+    **login_button.simple_salesforce_args
 )
+
+# Alternatively, you can use the authenticated requests session directly
+import requests
+session: requests.Session = login_button.session
 # ==================
 ```
 
@@ -36,9 +38,27 @@ sf: Salesforce = Salesforce(
 
 ```python
 import mosf
-login_button = mosf.login_button(
+import requests
+from simple_salesforce import Salesforce
+
+login_button = mosf.login_button(,
     consumer_key='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', # Defaults to os.environ.get('MOSF_CONSUMER_KEY')
     consumer_secret='xxxxxxxxxxxxxxxxx', # Optional, since mosf uses PKCE. Enhances security. Defaults to os.environ.get('MOSF_CONSUMER_SECRET')
-    oneshot=True, # Default option. Use an integrated, oneshot callback server, rather than a standalone server.
+    callbacK_type='oneshot', # Default option. Use an integrated, oneshot callback server, rather than a standalone server.
 )
 ```
+
+## Running `mosf` in a script
+
+`mosf`'s interactive web flow is not available when your notebook is being [run as a script](https://docs.marimo.io/guides/scripts/). Instead, `mosf` falls back to simple [security token](https://help.salesforce.com/s/articleView?id=xcloud.user_security_token.htm&type=5) authentication. You can pass your credentials to `mosf` directly or through environment variables.
+
+```python
+import mosf
+
+login_button = mosf.login_button(
+    username='example@example.com',      # Don't hard code credentials. Defaults to os.environ.get('MOSF_USERNAME')
+    password='super-secret-password',    # Don't hard code credentials. Defaults to os.environ.get('MOSF_PASSWORD')
+    security_token='xxxxxxxxxxxxxxxx',   # Don't hard code credentials. Defaults to os.environ.get('MOSF_SECURITY_TOKEN')
+)
+```
+

@@ -4,7 +4,9 @@ version = "0.1.0"
 description = "A 'Sign in to Salesforce' Anywidget button for Marimo"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "attrs>=25.3.0",
+]
 
 [dependency-groups]
 dev = [
@@ -22,6 +24,7 @@ server = [
 ]
 widget = [
     "anywidget>=0.9.18",
+    "requests>=2.32.3",
     "requests-oauthlib>=2.0.0",
 ]
 
